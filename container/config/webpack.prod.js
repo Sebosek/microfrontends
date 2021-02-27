@@ -17,7 +17,7 @@ const prod = {
       remotes: {
         marketing: `marketing@${domain}/marketing/latest/remote-entry.js`,
         auth: `auth@${domain}/auth/latest/remote-entry.js`,
-        dashboard: `dashboard@${domain}/remote-entry.js`,
+        dashboard: `dashboard@${domain}/dashboard/latest/remote-entry.js`,
       },
       shared: json.dependencies,
     }),
