@@ -2,20 +2,24 @@
 import { Switch, Route, Router } from 'react-router-dom';
 import { StylesProvider, createGenerateClassName } from '@material-ui/core/styles';
 
-import Landing from './components/Landing';
-import Pricing from './components/Pricing';
+import SignIn from './components/Signin';
+import SignUp from './components/Signup';
 
 const generateClassName = createGenerateClassName({
-  productionPrefix: 'ma',
+  productionPrefix: 'auth',
 });
 
-export default ({ history }) => {
+export default ({ history, onAuthChange }) => {
   return (
     <StylesProvider generateClassName={generateClassName}>
       <Router history={history}>
         <Switch>
-          <Route path="/pricing" component={Pricing} exact />
-          <Route path="/" component={Landing} />
+          <Route path="/auth/signin">
+            <SignIn onSignIn={onAuthChange} />
+          </Route>
+          <Route path="/auth/signup">
+            <SignUp onSignIn={onAuthChange} />
+          </Route>
         </Switch>
       </Router>
     </StylesProvider>

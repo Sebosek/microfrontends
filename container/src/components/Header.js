@@ -5,6 +5,7 @@ import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import { Link as RouterLink } from 'react-router-dom';
+import Box from "@material-ui/core/Box";
 
 const useStyles = makeStyles((theme) => ({
   '@global': {
@@ -24,39 +25,19 @@ const useStyles = makeStyles((theme) => ({
     flexWrap: 'wrap',
     justifyContent: 'space-between',
   },
-  link: {
-    margin: theme.spacing(1, 1.5),
-  },
-  heroContent: {
-    padding: theme.spacing(8, 0, 6),
-  },
-  cardHeader: {
-    backgroundColor:
-      theme.palette.type === 'light'
-        ? theme.palette.grey[200]
-        : theme.palette.grey[700],
-  },
-  cardPricing: {
+  user: {
     display: 'flex',
-    justifyContent: 'center',
-    alignItems: 'baseline',
-    marginBottom: theme.spacing(2),
+    alignItems: 'center',
   },
-  footer: {
-    borderTop: `1px solid ${theme.palette.divider}`,
-    marginTop: theme.spacing(8),
-    paddingTop: theme.spacing(3),
-    paddingBottom: theme.spacing(3),
-    [theme.breakpoints.up('sm')]: {
-      paddingTop: theme.spacing(6),
-      paddingBottom: theme.spacing(6),
-    },
+  email: {
+    marginRight: theme.spacing(2),
   },
 }));
 
-export default function Header({ signedIn, onSignOut }) {
+export default function Header({ user, onSignOut }) {
   const classes = useStyles();
-
+  const signedIn = user && user.email;
+  
   const onClick = () => {
     if (signedIn && onSignOut) {
       onSignOut();
@@ -81,16 +62,28 @@ export default function Header({ signedIn, onSignOut }) {
           >
             App
           </Typography>
-          <Button
-            color="primary"
-            variant="outlined"
-            className={classes.link}
-            component={RouterLink}
-            to={signedIn ? '/' : '/auth/signin'}
-            onClick={onClick}
-          >
-            {signedIn ? 'Logout' : 'Login'}
-          </Button>
+          <div className={classes.user}>
+            {user && 
+              <Box mr={2}>
+                <Typography
+                  color="inherit"
+                  noWrap
+                >
+                  {user.email}
+                </Typography>
+              </Box>
+            }
+            <Button
+              color="primary"
+              variant="outlined"
+              className={classes.link}
+              component={RouterLink}
+              to={signedIn ? '/' : '/auth/signin'}
+              onClick={onClick}
+            >
+              {signedIn ? 'Logout' : 'Login'}
+            </Button>
+          </div>
         </Toolbar>
       </AppBar>
     </React.Fragment>
